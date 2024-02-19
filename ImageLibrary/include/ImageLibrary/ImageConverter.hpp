@@ -1,4 +1,6 @@
 #pragma once
 
-void printHelloWorld();
+#include <opencv2/opencv.hpp>
+#include <iostream>
 
+void printHelloWorld();

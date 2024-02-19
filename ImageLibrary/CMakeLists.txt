@@ -1,5 +1,15 @@
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/LibraryCompileFlags.cmake)
 
+find_package(OpenCV REQUIRED)
+
+add_library(OpenCvWrapper INTERFACE)
+target_include_directories(OpenCvWrapper INTERFACE
+    $<BUILD_INTERFACE:${OpenCV_INCLUDE_DIRS}>
+)
+target_link_libraries(OpenCvWrapper INTERFACE
+    ${OpenCV_LIBS}
+)
+
 set(LIBRARY_NAME ImageLibrary)
 
 set(HEADERS
@@ -19,4 +29,6 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 target_link_libraries(${LIBRARY_NAME}
     PRIVATE
         LibraryCompileFlags
+    PUBLIC
+        OpenCvWrapper
 )
