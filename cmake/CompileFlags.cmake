@@ -1,4 +1,4 @@
-set(MODULE_NAME LibraryCompileFlags)
+set(MODULE_NAME CompileFlags)
 
 add_library(${MODULE_NAME} INTERFACE)
 

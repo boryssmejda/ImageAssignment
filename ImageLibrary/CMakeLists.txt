@@ -1,5 +1,3 @@
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/LibraryCompileFlags.cmake)
-
 find_package(OpenCV REQUIRED)
 
 add_library(OpenCvWrapper INTERFACE)
@@ -28,6 +26,6 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
 
 target_link_libraries(${LIBRARY_NAME}
     PRIVATE
-        LibraryCompileFlags
+        CompileFlags
         OpenCvWrapper
 )
