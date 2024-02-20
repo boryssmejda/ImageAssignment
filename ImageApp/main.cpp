@@ -1,23 +1,46 @@
 #include "ImageLibrary/ImageConverter.hpp"
 
+#include <cstdlib>
+#include <iostream>
+#include <string>
+
 int main(int argc, char** argv)
 {
-    if(argc != 2)
+    if(argc != 3)
     {
-        std::cout <<" Usage: " << argv[0] << " ImageToLoadAndDisplay" << std::endl;
-        return -1;
-    }
-    cv::Mat image;
-    image = imread(argv[1], cv::IMREAD_COLOR); // Read the file
-
-    if(image.empty())
-    {
-        std::cout << "Could not open or find the image" << std::endl ;
-        return -1;
+        std::cout <<"Usage: " << "./" << argv[0]
+            << " <input_filename> <output_filename>" << std::endl;
+        return EXIT_FAILURE;
     }
 
-    cv::namedWindow( "Display window", cv::WINDOW_AUTOSIZE ); // Create a window for display.
-    cv::imshow( "Display window", image ); // Show our image inside it.
-    cv::waitKey(0); // Wait for a keystroke in the window
-    return 0;
+    const std::string inputFilename{argv[1]};
+    const std::string outputFilename{argv[2]};
+
+    if (imageLibrary::initializeImageLibrary() != imageLibrary::Status::Success)
+    {
+        std::cout << "Could not initialize the ImageLibrary!\n";
+        return EXIT_FAILURE;
+    }
+
+    imageLibrary::Image image;
+    if (image.readImage(inputFilename) != imageLibrary::Status::Success)
+    {
+        std::cout << "Reading the image failed!" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    const auto conversionStatus = image.convertImageToGrayscale();
+    if (conversionStatus != imageLibrary::Status::Success)
+    {
+        std::cout << "Grayscale conversion failed!" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    if (image.saveImage(outputFilename) != imageLibrary::Status::Success)
+    {
+        std::cout << "Saving image failed!" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }

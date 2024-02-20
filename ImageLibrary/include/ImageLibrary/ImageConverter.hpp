@@ -1,6 +1,30 @@
 #pragma once
 
-#include <opencv2/opencv.hpp>
-#include <iostream>
+#include <memory>
+#include <string>
 
-void printHelloWorld();
+namespace imageLibrary
+{
+
+enum class Status
+{
+    Success,
+    Failure,
+};
+
+auto initializeImageLibrary() -> Status;
+
+class Image
+{
+public:
+    Image();
+    ~Image();
+    auto readImage(const std::string& filename) -> Status;
+    auto saveImage(const std::string& filename) -> Status;
+    auto convertImageToGrayscale() -> Status;
+
+private:
+    struct ImageImpl;
+    std::unique_ptr<ImageImpl> impl{nullptr};
+};
+} // namespace imageLibrary
