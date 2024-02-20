@@ -25,6 +25,6 @@ public:
 
 private:
     struct ImageImpl;
-    std::unique_ptr<ImageImpl> impl{nullptr};
+    std::unique_ptr<ImageImpl> impl;
 };
 } // namespace imageLibrary
