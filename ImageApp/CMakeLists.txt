@@ -6,3 +6,10 @@ target_link_libraries(${APP_NAME}
         CompileFlags
         ImageLibrary
 )
+
+# Install the executable
+install(TARGETS ImageApp DESTINATION ${PROJECT_NAME}/${APP_NAME}/bin)
+
+# Install the contents of the resource folder alongside the executable
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/resources
+    DESTINATION ${PROJECT_NAME}/${APP_NAME}/bin)
