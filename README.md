@@ -23,6 +23,8 @@ Conflict originates from freetype/2.13.2
 I tried using version 4.9 or any other OpenCV 4 version, but the conan center seemed not to have these packages.
 Therefore adding package manager support to the project would definitely help and would be top on the improvement areas for the project.
 
+I have also tried using vcpkg and it seems to work as it downloaded and compiled the dependencies, but the process took 1.5h. Therefore I will not add vcpkg to the final version of the assignment.
+
 ```sh
 mkdir build
 cd build
@@ -33,13 +35,7 @@ cmake --build . --config Release
 ./ImageApp/Debug/ImageApp.exe <input_picture_path> <output_picture_path>
 ```
 
-I installed OpenCV into deps/ folder inside my ImageAssignment repository to have an easy access to the library. I also added bin/ directory to the environment variables as suggest on their website to run opencv application easily without issues of lacking .dll files.
-
-TODO JUTRO:
-vcpkg support
-napisać prostego UT.
-dodaj zdjecie do testowania --> Done
-
+I installed OpenCV into deps/ folder inside my ImageAssignment repository to have an easy access to the library. I also added bin/ directory to the environment variables as suggested on OpenCV's website to run opencv application easily without issues with lacking .dll files.
 
 Further Development Areas:
 1) Unit tests with memory and address sanitizer checking, valgrind support.
