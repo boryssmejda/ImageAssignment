@@ -4,11 +4,11 @@
 #include <iostream>
 #include <string>
 
-int main(int argc, char** argv)
+int mainImageGrayScaleConversion(int argc, char** argv)
 {
     if(argc != 3)
     {
-        std::cout <<"Usage: " << "./" << argv[0]
+        std::cerr <<"Usage: " << "./" << argv[0]
             << " <input_filename> <output_filename>" << std::endl;
         return EXIT_FAILURE;
     }
@@ -18,29 +18,34 @@ int main(int argc, char** argv)
 
     if (imageLibrary::initializeImageLibrary() != imageLibrary::Status::Success)
     {
-        std::cout << "Could not initialize the ImageLibrary!\n";
+        std::cerr << "Could not initialize the ImageLibrary!\n";
         return EXIT_FAILURE;
     }
 
     imageLibrary::Image image;
     if (image.readImage(inputFilename) != imageLibrary::Status::Success)
     {
-        std::cout << "Reading the image failed!" << std::endl;
+        std::cerr << "Reading the image failed!" << std::endl;
         return EXIT_FAILURE;
     }
 
     const auto conversionStatus = image.convertImageToGrayscale();
     if (conversionStatus != imageLibrary::Status::Success)
     {
-        std::cout << "Grayscale conversion failed!" << std::endl;
+        std::cerr << "Grayscale conversion failed!" << std::endl;
         return EXIT_FAILURE;
     }
 
     if (image.saveImage(outputFilename) != imageLibrary::Status::Success)
     {
-        std::cout << "Saving image failed!" << std::endl;
+        std::cerr << "Saving image failed!" << std::endl;
         return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
+}
+
+int main(int argc, char** argv)
+{
+    return mainImageGrayScaleConversion(argc, argv);
 }
