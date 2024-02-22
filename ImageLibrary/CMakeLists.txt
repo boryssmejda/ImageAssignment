@@ -29,3 +29,37 @@ target_link_libraries(${LIBRARY_NAME}
         CompileFlags
         OpenCvWrapper
 )
+
+set_target_properties(${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER ${HEADERS})
+
+# I decided to add installation commands to build the nice package out of the library.
+# I must admit I am not certain that this would work
+# if I tried to use find_package(ImageLibrary CONFIG REQUIRED) in other project.
+# I did not have time to dig deeper into this. I would be glad to discuss this though.
+# I still have the impression that the client would have to call find_package(OpenCV REQUIRED),
+# even though the ImageLibrary does not expose this dependency explicitly.
+
+install(TARGETS ${LIBRARY_NAME}
+    EXPORT ${LIBRARY_NAME}Targets
+    DESTINATION ${LIBRARY_NAME}/lib/
+    PUBLIC_HEADER DESTINATION ${LIBRARY_NAME}/include/${LIBRARY_NAME}
+)
+
+install(EXPORT ${LIBRARY_NAME}Targets
+        DESTINATION ${LIBRARY_NAME}/cmake/
+        FILE ${LIBRARY_NAME}Config.cmake
+        NAMESPACE ${LIBRARY_NAME}::
+)
+
+# Add CompileFlags and OpencvWrapper to the export set
+install(TARGETS CompileFlags OpenCvWrapper
+    EXPORT ImageLibraryTargets
+    DESTINATION ${LIBRARY_NAME}/lib/
+)
+
+# Generate and install the export configuration file
+install(EXPORT ImageLibraryTargets
+    FILE ImageLibraryTargets.cmake
+    NAMESPACE ${LIBRARY_NAME}::
+    DESTINATION ${LIBRARY_NAME}/cmake/
+)

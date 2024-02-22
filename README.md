@@ -33,6 +33,7 @@ cmake --build . --config Debug
 cmake --build . --config Release
 ./ImageApp/Release/ImageApp.exe <input_picture_path> <output_picture_path>
 ./ImageApp/Debug/ImageApp.exe <input_picture_path> <output_picture_path>
+cmake --install . --config Release --prefix <install_path>
 ```
 
 I installed OpenCV into deps/ folder inside my ImageAssignment repository to have an easy access to the library. I also added bin/ directory to the environment variables as suggested on OpenCV's website to run opencv application easily without issues with lacking .dll files.
